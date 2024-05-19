@@ -1,0 +1,139 @@
+In RESTful API design, each HTTP method (PUT, POST, PATCH, DELETE, GET) is used for a specific type of operation. Below is a breakdown of the conventions for what you should pass and what each method should return.
+
+GET
+Purpose: Retrieve information from the server.
+
+Request:
+
+Parameters: Can include query parameters or path variables to specify which resource(s) to retrieve.
+Body: Typically, GET requests do not have a body.
+Response:
+
+Status Code:
+200 OK if the resource is successfully retrieved.
+404 Not Found if the resource does not exist.
+Body: The requested resource(s), typically in JSON format.
+POST
+Purpose: Create a new resource on the server.
+
+Request:
+
+Parameters: Often none, although sometimes path variables are used.
+Body: Contains the data for the new resource, usually in JSON format.
+Response:
+
+Status Code:
+201 Created if the resource is successfully created.
+400 Bad Request if the request data is invalid.
+Body: May include the newly created resource or a location header with the URI of the new resource.
+PUT
+Purpose: Update an existing resource or create a new resource if it does not exist.
+
+Request:
+
+Parameters: Path variables to specify which resource to update.
+Body: Contains the updated data for the resource, typically in JSON format.
+Response:
+
+Status Code:
+200 OK or 204 No Content if the resource is successfully updated.
+201 Created if a new resource is created.
+400 Bad Request if the request data is invalid.
+404 Not Found if the resource to update does not exist.
+Body: Usually empty for successful updates; may contain the updated resource or a location header.
+PATCH
+Purpose: Partially update an existing resource.
+
+Request:
+
+Parameters: Path variables to specify which resource to update.
+Body: Contains the partial data to update the resource, typically in JSON format.
+Response:
+
+Status Code:
+200 OK or 204 No Content if the resource is successfully updated.
+400 Bad Request if the request data is invalid.
+404 Not Found if the resource to update does not exist.
+Body: Usually empty; may contain the updated resource.
+DELETE
+Purpose: Remove a resource from the server.
+
+Request:
+
+Parameters: Path variables to specify which resource to delete.
+Body: Typically empty.
+Response:
+
+Status Code:
+200 OK or 204 No Content if the resource is successfully deleted.
+404 Not Found if the resource does not exist.
+Body: Usually empty; may confirm the deletion.
+
+
+
+Example Usage
+GET:
+GET /users/123
+
+Response
+{
+  "id": 123,
+  "name": "John Doe",
+  "email": "john.doe@example.com"
+}
+
+POST:
+POST /users
+
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane.doe@example.com"
+}
+
+Response:
+{
+  "id": 124,
+  "name": "Jane Doe",
+  "email": "jane.doe@example.com"
+}
+
+PUT:
+PUT /users/123
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@newdomain.com"
+}
+
+Response
+{
+  "id": 123,
+  "name": "John Doe",
+  "email": "john.doe@newdomain.com"
+}
+
+PATCH
+PATCH /users/123
+Content-Type: application/json
+
+{
+  "email": "john.doe@newdomain.com"
+}
+
+Response
+{
+  "id": 123,
+  "name": "John Doe",
+  "email": "john.doe@newdomain.com"
+}
+
+DELETE
+DELETE /users/123
+
+Response:
+{
+  "message": "User deleted successfully."
+}
